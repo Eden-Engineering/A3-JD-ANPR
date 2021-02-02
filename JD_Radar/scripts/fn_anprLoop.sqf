@@ -5,16 +5,15 @@
 	Creates a loop for updating the anpr info on the top right of the screen
 */
 
-params ["_display"];
+private _display = uiNamespace getVariable "JDRadar";
 
-uiSleep 2;
-
-private _anprControl = _display displayCtrl 5;
-_anprControl ctrlSetStructuredText parseText "<t size='1.1' color='#a6a6a6' align='center' valign='middle'>Scanning...</t>";
 private _lastScan = "";
 
 while {!(isNull objectParent player)} do {
-	if (systemPower) then {
+	_display = uiNamespace getVariable "JDRadar";
+	if !(isNil "_display") then {
+		private _anprControl = _display displayCtrl 5;
+		
 		//Select Nearest car that is visible to anpr scanner
 		private _nearCars = nearestObjects [player, ["Car"], 40, true];
 		_nearCars deleteAt 0;
@@ -57,15 +56,10 @@ while {!(isNull objectParent player)} do {
 			", _vehInfo # 0, _ownerName, _vehInfo # 3, _isInsured
 		];
 
-		if (_lastScan isEqualTo _scanInfo) exitWith {
-			uiSleep 0.5;
-		};
-		_lastScan = _scanInfo;
-
+		
 		_anprControl ctrlSetStructuredText parseText _scanInfo;
 		uiSleep 0.5;
 	} else {
-		sleep 1;
-		_anprControl ctrlSetStructuredText parseText "<t size='1.1' color='#a6a6a6' align='center' valign='middle'>System OFF</t>";
+		uiSleep 0.1;
 	};
 };

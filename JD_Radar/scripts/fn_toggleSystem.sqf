@@ -12,7 +12,11 @@ if (isNull objectParent player) exitWith {};
 systemPower = !systemPower;
 
 if (systemPower) then {
+	"JDRadar" cutRsc ["JDRadar", "PLAIN"];
 	private _display = uiNamespace getVariable "JDRadar";
-	private _anprControl = _display displayCtrl 5;
-	_anprControl ctrlSetStructuredText parseText "<t size='1.1' color='#a6a6a6' align='center' valign='middle'>Scanning...</t>";
+	playSound "JD_RadarOn";
+} else {
+	private _display = uiNamespace getVariable "JDRadar";
+	_display closeDisplay 1;
+	playSound "JD_RadarOff";
 };

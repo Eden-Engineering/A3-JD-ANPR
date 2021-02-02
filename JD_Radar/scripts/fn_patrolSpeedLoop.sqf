@@ -5,15 +5,15 @@
 	updates the speed of the patrol car
 */
 
-params ["_display"];
+private _display = uiNamespace getVariable "JDRadar";
 
-_PatrolControl = _display displayCtrl 1;
 while {!(isNull objectParent player)} do {
-	if (systemPower) then {
+	_display = uiNamespace getVariable "JDRadar";
+
+	if !(isNil "_display") then {
+		_PatrolControl = _display displayCtrl 1;
 		_PatrolControl ctrlSetText str abs round speed player;
-		uiSleep 0.1;
-	} else {
-		sleep 0.01;
-		_PatrolControl ctrlSetText str 0;
 	};
+	
+	uiSleep 0.1;
 };

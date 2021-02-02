@@ -5,17 +5,19 @@
 	Creates a loop for updating the target speed and lock speed
 */
 
-params ["_display"];
+private _display = uiNamespace getVariable "JDRadar";
 
-private _LockControl = _display displayCtrl 2;
-private _TargetControl = _display displayCtrl 3;
 private _targetSpeed = 0;
 private _lockSpeed = 0;
-private _lastTarget = "";
+private _lastTarget = objNull;
 
 //End loop when player leaves vehicle
 while {!(isNull objectParent player)} do {
-	if (systemPower) then {
+	_display = uiNamespace getVariable "JDRadar";
+	if !(isNil "_display") then {
+		private _LockControl = _display displayCtrl 2;
+		private _TargetControl = _display displayCtrl 3;
+
 		//Select Nearest car
 		private _nearCars = nearestObjects [player, ["Car"], 200, true];
 		_nearCars deleteAt 0;
@@ -47,12 +49,10 @@ while {!(isNull objectParent player)} do {
 		//Update Radar
 		_LockControl ctrlSetText str _lockSpeed;
 		_TargetControl ctrlSetText str _targetSpeed;
-		uiSleep 0.4;
+		uiSleep 0.3;
 	} else {
-		sleep 0.01;
-		_lastTarget = "";
 		_lockSpeed = 0;
-		_LockControl ctrlSetText str 0;
-		_TargetControl ctrlSetText str 0;
+		_lastTarget = objNull;
+		uiSleep 0.1;
 	};
 };

@@ -20,29 +20,17 @@
 		"JD: ANPR/Radar",
 		"toggle_system",
 		"Toggle System",
-		[
-			"player",
-			[],
-			-100,
-			"_this call JDR_fnc_toggleSystem"
-		],
-		[
-			DIK_P,
-			[
-				false,
-				true,
-				true
-			]
-		]
-	] call CBA_fnc_addKeybindToFleximenu;
+		{
+			call JDR_fnc_toggleSystem
+		},
+		{}, [DIK_P,[false,false,false]]
+	] call CBA_fnc_addKeybind;
 
 	player addEventHandler ["GetInMan", {
-		"JDRadar" cutRsc ["JDRadar", "PLAIN"];
-		private _display = uiNamespace getVariable "JDRadar";
 		systemPower = false;
-		[_display] spawn JDR_fnc_PatrolSpeedLoop;
-		[_display] spawn JDR_fnc_RadarLoop;
-		[_display] spawn JDR_fnc_anprLoop;
+		[] spawn JDR_fnc_PatrolSpeedLoop;
+		[] spawn JDR_fnc_RadarLoop;
+		[] spawn JDR_fnc_anprLoop;
 	}];
 
 	player addEventHandler ["GetOutMan", {

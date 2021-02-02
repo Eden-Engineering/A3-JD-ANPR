@@ -121,7 +121,7 @@ class RscTitles {
                 w = safeZoneW * 0.1825;
                 h = safeZoneH * 0.10555556;
                 style = 0;
-                text = "<t size='1.1' color='#a6a6a6' align='center' valign='middle'>System OFF</t>";
+                text = "<t size='1.1' color='#a6a6a6' align='center' valign='middle'>Scanning...</t>";
                 size = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
                 colorBackground[] = {1, 1, 1, 0};
                 class Attributes {
@@ -139,12 +139,12 @@ class CfgSounds {
     };
     class JD_RadarOn {
         name = "JD_RadarBeep";
-        sound[] = {"JD_Radar\Sounds\done.ogg", db - 0, 1, 5};
+        sound[] = {"JD_Radar\Sounds\xmit_on.ogg", db - 1, 1, 5};
         titles[] = {0, ""};
     };
     class JD_RadarOff {
         name = "JD_RadarBeep";
-        sound[] = {"JD_Radar\Sounds\done.ogg", db - 0, 1, 5};
+        sound[] = {"JD_Radar\Sounds\xmit_off.ogg", db - 1, 1, 5};
         titles[] = {0, ""};
     };
 };
