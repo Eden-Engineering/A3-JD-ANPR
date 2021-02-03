@@ -2,7 +2,7 @@
 	Author: John Doe
 
 	Description:
-	change this depending on ur framework
+	toggles the state of the system
 */
 
 params ["_uid"];

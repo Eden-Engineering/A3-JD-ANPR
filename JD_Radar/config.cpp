@@ -24,6 +24,7 @@ class cfgFunctions {
             class getVehInfo {};
             class isWanted {};
             class toggleSystem {};
+            class hasRadar {};
         };
     };
 };
