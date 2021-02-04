@@ -21,13 +21,56 @@
 		"toggle_system",
 		"Toggle System",
 		{
-			call JDR_fnc_toggleSystem
+			[] call JDR_fnc_toggleSystem;
 		},
 		{}, [DIK_P,[false,false,false]]
 	] call CBA_fnc_addKeybind;
 
+	[
+		"JDR_StartOn",
+		"CHECKBOX",
+		"Start On",
+		["JD: Radar/ANPR", "General"],
+		false,
+		nil,
+		{}
+	] call CBA_fnc_addSetting;
+
+	[
+		"JDR_WarrantSound",
+		"CHECKBOX",
+		"Warrant Sound",
+		["JD: Radar/ANPR", "General"],
+		false,
+		nil,
+		{}
+	] call CBA_fnc_addSetting;
+
+	[
+		"JDR_RadarDistance",
+		"SLIDER",
+		"Radar Distance",
+		["JD: Radar/ANPR", "Performance"],
+		[20, 200, 200, 0],
+		nil,
+		{}
+	] call CBA_fnc_addSetting;
+
+	[
+		"JDR_ANPRDistance",
+		"SLIDER",
+		"ANPR Distance",
+		["JD: Radar/ANPR", "Performance"],
+		[20, 50, 40, 0],
+		nil,
+		{}
+	] call CBA_fnc_addSetting;
+
 	player addEventHandler ["GetInMan", {
 		systemPower = false;
+		if (JDR_StartOn) then {
+			[] call JDR_fnc_toggleSystem;
+		};
 	}];
 
 	player addEventHandler ["GetOutMan", {

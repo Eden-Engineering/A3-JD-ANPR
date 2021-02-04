@@ -3,8 +3,8 @@ class CfgPatches {
         name = "JD: Radar";
         author = "John Doe";
         url = "https://jdtools.dev/";
-        requiredVersion = 1.60;
-        requiredAddons[] = {};
+        requiredVersion = 2.0;
+        requiredAddons[] = {"A3_Weapons_F", "cba_common"};
     };
 };
 
@@ -147,5 +147,22 @@ class CfgSounds {
         name = "JD_RadarBeep";
         sound[] = {"JD_Radar\Sounds\xmit_off.ogg", db - 1, 1, 5};
         titles[] = {0, ""};
+    };
+};
+
+class CfgWeapons {
+    class CBA_MiscItem;
+    class CBA_MiscItem_ItemInfo;
+
+    class JDR_RadarJammer: CBA_MiscItem {
+        author = "John Doe";
+        displayName = "Radar Jammer";
+        descriptionShort = "Place in vehicle inventory";
+        model = "\a3\Weapons_F\Ammo\mag_FirstAidkit.p3d";
+        picture = "\A3\Weapons_F\Items\data\UI\gear_gps_CA.paa";
+        scope = 2;
+        class ItemInfo: CBA_MiscItem_ItemInfo {
+            mass = 5;
+        };
     };
 };

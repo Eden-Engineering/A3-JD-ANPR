@@ -17,14 +17,18 @@ private _lastTarget = objNull;
 while {!isNil "_display"} do {
 	if (true) then {
 		//Select Nearest car that is visible to anpr scanner
-		private _nearCars = nearestObjects [player, ["Car"], 200, true];
+		private _nearCars = nearestObjects [player, ["Car"], JDR_RadarDistance, true];
 		_nearCars deleteAt 0;
 		private _target = _nearCars findIf {[_x] call JDR_fnc_isVisibleToRadar};
 		if (_target isEqualTo -1) exitWith {
 			_TargetControl ctrlSetText str 0;
-			uiSleep 0.1;
 		};
 		_target = _nearCars # _target;
+
+
+		if (((itemCargo _target) findIf {_x isEqualTo "JDR_RadarJammer"}) != -1) exitWith {
+			_TargetControl ctrlSetText str 0;
+		};
 
 		_targetSpeed = abs round speed _target;
 
@@ -41,6 +45,6 @@ while {!isNil "_display"} do {
 		//Update Radar
 		_LockControl ctrlSetText str _lockSpeed;
 		_TargetControl ctrlSetText str _targetSpeed;
-		uiSleep 0.2;
 	};
+	uiSleep 0.15;
 };

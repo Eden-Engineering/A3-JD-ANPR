@@ -21,7 +21,7 @@ if (terrainIntersect [(ASLToAGL eyePos player), (ASLToAGL aimPos _target)]) exit
 	false;
 };
 
-if !([position vehicle player, direction vehicle player, 70, position _x] call BIS_fnc_inAngleSector) exitWith {
+if !([position vehicle player, direction vehicle player, 70, position _target] call BIS_fnc_inAngleSector) exitWith {
 	false;
 };
 

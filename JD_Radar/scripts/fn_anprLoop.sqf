@@ -14,12 +14,10 @@ while {!isNil "_display"} do {
 	if (true) then {
 		
 		//Select Nearest car that is visible to anpr scanner
-		private _nearCars = nearestObjects [player, ["Car"], 40, true];
+		private _nearCars = nearestObjects [player, ["Car"], JDR_ANPRDistance, true];
 		_nearCars deleteAt 0;
 		private _target = _nearCars findIf {[_x] call JDR_fnc_isVisibleToANPR};
-		if (_target isEqualTo -1) exitWith {
-			uiSleep 0.4;
-		};
+		if (_target isEqualTo -1) exitWith {};
 		_target = _nearCars # _target;
 	
 		private _vehInfo = [_target] call JDR_fnc_getVehInfo;
@@ -27,7 +25,9 @@ while {!isNil "_display"} do {
 		private _isInsured = _vehInfo # 4;
 
 		if ([_vehInfo # 2] call JDR_fnc_isWanted) then {
-			playSound "JD_RadarBeep";
+			if (JDR_WarrantSound) then {
+				playSound "JD_RadarBeep";
+			};
 			_ownerName = format ["%1 - <t color='#910707' size='1'>Wanted</t>",_ownerName];
 		} else {
 			_ownerName = format ["%1 - <t size='1'>No active warrants</t>",_ownerName];
@@ -48,6 +48,6 @@ while {!isNil "_display"} do {
 		];
 
 		_anprControl ctrlSetStructuredText parseText _scanInfo;
-		uiSleep 1;
 	};
+	uiSleep 1;
 };
