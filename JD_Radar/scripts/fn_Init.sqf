@@ -27,13 +27,7 @@
 	] call CBA_fnc_addKeybind;
 
 	player addEventHandler ["GetInMan", {
-		params ["_unit", "_role", "_vehicle", "_turret"];
-		if ([_vehicle] call JDR_fnc_hasRadar) then {
-			systemPower = false;
-			[] spawn JDR_fnc_PatrolSpeedLoop;
-			[] spawn JDR_fnc_RadarLoop;
-			[] spawn JDR_fnc_anprLoop;
-		};
+		systemPower = false;
 	}];
 
 	player addEventHandler ["GetOutMan", {

@@ -6,34 +6,26 @@
 */
 
 private _display = uiNamespace getVariable "JDRadar";
+private _LockControl = _display displayCtrl 2;
+private _TargetControl = _display displayCtrl 3;
 
 private _targetSpeed = 0;
 private _lockSpeed = 0;
 private _lastTarget = objNull;
 
 //End loop when player leaves vehicle
-while {!(isNull objectParent player)} do {
-	_display = uiNamespace getVariable "JDRadar";
-	if !(isNil "_display") then {
-		private _LockControl = _display displayCtrl 2;
-		private _TargetControl = _display displayCtrl 3;
-
-		//Select Nearest car
+while {!isNil "_display"} do {
+	if (true) then {
+		//Select Nearest car that is visible to anpr scanner
 		private _nearCars = nearestObjects [player, ["Car"], 200, true];
 		_nearCars deleteAt 0;
-		if !((count _nearCars) > 0) exitWith {
-			_TargetControl ctrlSetText "0";
-			uiSleep 0.8;
+		private _target = _nearCars findIf {[_x] call JDR_fnc_isVisibleToRadar};
+		if (_target isEqualTo -1) exitWith {
+			_TargetControl ctrlSetText str 0;
+			uiSleep 0.1;
 		};
-		_target = _nearCars select 0;
+		_target = _nearCars # _target;
 
-		//Check if terrain or objects obstruct radar
-		if !([_target] call JDR_fnc_isVisibleToRadar) exitWith {
-			_TargetControl ctrlSetText "0";
-			uiSleep 0.3;
-		};
-
-		
 		_targetSpeed = abs round speed _target;
 
 		//If new vehicle reset lock speed
@@ -49,10 +41,6 @@ while {!(isNull objectParent player)} do {
 		//Update Radar
 		_LockControl ctrlSetText str _lockSpeed;
 		_TargetControl ctrlSetText str _targetSpeed;
-		uiSleep 0.3;
-	} else {
-		_lockSpeed = 0;
-		_lastTarget = objNull;
-		uiSleep 0.1;
+		uiSleep 0.2;
 	};
 };

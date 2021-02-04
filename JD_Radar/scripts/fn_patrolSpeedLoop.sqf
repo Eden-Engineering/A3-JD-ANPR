@@ -6,14 +6,9 @@
 */
 
 private _display = uiNamespace getVariable "JDRadar";
+_PatrolControl = _display displayCtrl 1;
 
-while {!(isNull objectParent player)} do {
-	_display = uiNamespace getVariable "JDRadar";
-
-	if !(isNil "_display") then {
-		_PatrolControl = _display displayCtrl 1;
-		_PatrolControl ctrlSetText str abs round speed player;
-	};
-	
+while {!isNil "_display"} do {
+	_PatrolControl ctrlSetText str abs round speed player;
 	uiSleep 0.1;
 };

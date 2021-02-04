@@ -6,30 +6,21 @@
 */
 
 private _display = uiNamespace getVariable "JDRadar";
+private _anprControl = _display displayCtrl 5;
 
 private _lastScan = "";
 
-while {!(isNull objectParent player)} do {
-	_display = uiNamespace getVariable "JDRadar";
-	if !(isNil "_display") then {
-		private _anprControl = _display displayCtrl 5;
+while {!isNil "_display"} do {
+	if (true) then {
 		
 		//Select Nearest car that is visible to anpr scanner
 		private _nearCars = nearestObjects [player, ["Car"], 40, true];
 		_nearCars deleteAt 0;
-		if ((count _nearCars) == 0) exitWith {
-			uiSleep 0.2;
+		private _target = _nearCars findIf {[_x] call JDR_fnc_isVisibleToANPR};
+		if (_target isEqualTo -1) exitWith {
+			uiSleep 0.4;
 		};
-
-		private _target = objNull;
-		{
-			if ([_x] call JDR_fnc_isVisibleToANPR) exitWith {
-				_target = _x;
-			};
-		} forEach _nearCars;
-		if (_target isEqualTo objNull) exitWith {
-			uiSleep 0.2;
-		};
+		_target = _nearCars # _target;
 	
 		private _vehInfo = [_target] call JDR_fnc_getVehInfo;
 		private _ownerName = _vehInfo # 1;
@@ -56,10 +47,7 @@ while {!(isNull objectParent player)} do {
 			", _vehInfo # 0, _ownerName, _vehInfo # 3, _isInsured
 		];
 
-		
 		_anprControl ctrlSetStructuredText parseText _scanInfo;
-		uiSleep 0.5;
-	} else {
-		uiSleep 0.1;
+		uiSleep 1;
 	};
 };

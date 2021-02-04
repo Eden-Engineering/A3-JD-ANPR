@@ -2,7 +2,7 @@
 	Author: John Doe
 
 	Description:
-	Does the supplied vehicle have police anpr/radar
+	Does the supplied vehicle have police anpr/radar?
 
 	Parameter(s):
 	0: OBJECT - target vehicle
