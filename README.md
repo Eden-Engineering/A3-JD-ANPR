@@ -4,11 +4,11 @@
 Realistic and simple ANPR and Radar system for arma 3.
 
 ### Features
--- ANPR system
--- Radar system
--- Custom Keybinds
--- settings
--- Radar Jammers 
+- ANPR system
+- Radar system
+- Custom Keybinds
+- settings
+- Radar Jammers 
 
 ### Installation
 1. CBA is required.
