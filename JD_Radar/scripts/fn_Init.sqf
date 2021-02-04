@@ -41,7 +41,7 @@
 		"CHECKBOX",
 		"Warrant Sound",
 		["JD: Radar/ANPR", "General"],
-		false,
+		true,
 		nil,
 		{}
 	] call CBA_fnc_addSetting;
